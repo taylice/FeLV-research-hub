@@ -14,7 +14,7 @@
     <nav>
       <a href="index.html" class="active">Início</a>
       <a href="felv_timeline.html">Linha do tempo</a>
-      <a href="pubmed.html">PubMed</a>
+      <a href="pubmed.html">Literatura</a>
       <a href="enfelv.html">enFeLV</a>
       <a href="epidemiologia.html">Epidemiologia</a>
       <a href="subtipador.html">Subtipador</a>
@@ -39,8 +39,8 @@
       <p>De 1908 até hoje: marcos históricos, descoberta de receptores, vacinas e epidemiologia do FeLV, organizados cronologicamente.</p>
     </a>
     <a class="card" href="pubmed.html">
-      <h3>📚 PubMed</h3>
-      <p>Resultado bruto da busca bibliográfica no PubMed sobre FeLV — pesquisável e paginado.</p>
+      <h3>📚 Literatura</h3>
+      <p>Busca bibliográfica ampla sobre FeLV — pesquisável e paginada. <small>Fonte: base de literatura biomédica.</small></p>
     </a>
     <a class="card" href="enfelv.html">
       <h3>🧬 enFeLV</h3>
@@ -48,7 +48,7 @@
     </a>
     <a class="card" href="epidemiologia.html">
       <h3>🌍 Epidemiologia</h3>
-      <p>Prevalência de FeLV por país e continente, incluindo o estudo pan-europeu de Studer et al. (2019).</p>
+      <p>Prevalência de FeLV por país e continente, incluindo um recorte de amostragem pan-europeu. <small>Fonte: Studer et al., 2019.</small></p>
     </a>
     <a class="card" href="subtipador.html">
       <h3>🧪 Subtipador (env)</h3>
@@ -76,7 +76,7 @@
 try {
   document.getElementById('stats').innerHTML = `
     <div class="stat"><div class="n">${window.__TIMELINE__.count}</div><div class="l">eventos na linha do tempo</div></div>
-    <div class="stat"><div class="n">${window.__PUBMED__.count}</div><div class="l">artigos (PubMed)</div></div>
+    <div class="stat"><div class="n">${window.__PUBMED__.count}</div><div class="l">artigos na literatura</div></div>
     <div class="stat"><div class="n">${window.__ENFELV__.count}</div><div class="l">artigos (enFeLV)</div></div>
   `;
 } catch (e) {}

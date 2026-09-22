@@ -13,7 +13,7 @@
     <nav>
       <a href="index.html">Início</a>
       <a href="felv_timeline.html">Linha do tempo</a>
-      <a href="pubmed.html">PubMed</a>
+      <a href="pubmed.html">Literatura</a>
       <a href="enfelv.html">enFeLV</a>
       <a href="epidemiologia.html" class="active">Epidemiologia</a>
       <a href="subtipador.html">Subtipador</a>
@@ -25,7 +25,7 @@
 <div class="wrap">
   <div class="hero">
     <h1>Epidemiologia por país</h1>
-    <p class="lead">Duas fontes, mostradas separadamente: um histórico mundial consolidado de prevalência de FeLV por país, e a tabela original do estudo pan-europeu de Studer et al. (2019).</p>
+    <p class="lead">Duas fontes, mostradas separadamente: um histórico mundial consolidado de prevalência de FeLV por país, e uma amostragem específica de um estudo pan-europeu. <small>Fonte do recorte pan-europeu: Studer et al., 2019.</small></p>
   </div>
 
   <h2>Histórico mundial por país</h2>
@@ -44,8 +44,8 @@
     <tbody id="tbody-mundo"></tbody>
   </table>
 
-  <h2>Europa — Studer et al. (2019)</h2>
-  <p class="lead" style="font-size:13.5px">Tabela original desse estudo pan-europeu específico (amostra por país), mantida separada do histórico consolidado acima.</p>
+  <h2>Amostragem pan-europeia por país</h2>
+  <p class="lead" style="font-size:13.5px">Tabela original de um estudo pan-europeu específico (amostra por país), mantida separada do histórico consolidado acima. <small>Fonte: Studer et al., 2019.</small></p>
   <div class="count" id="count-studer"></div>
   <table>
     <thead>
@@ -80,7 +80,7 @@ function renderMundo(list) {
       <td>${r.continent || ''}</td>
       <td>${r.country || ''}</td>
       <td>${r.earliest_year ?? ''}</td>
-      <td>${r.latest_prevalence || ''}${r.latest_year ? ' (' + r.latest_year + ')' : ''}</td>
+      <td>${r.latest_prevalence || ''}</td>
       <td class="ref-cell">${r.main_source || ''}${doiLink(r.doi)}<div class="note" style="margin-top:4px">${r.history_notes || ''}</div></td>
     </tr>`).join('');
   document.getElementById('count-mundo').textContent = list.length + ' registro' + (list.length !== 1 ? 's' : '');
