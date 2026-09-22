@@ -103,6 +103,30 @@ header.site nav a.active {
   padding: 2.5rem 0 1.5rem;
 }
 
+.en-caption {
+  font-size: 12px;
+  color: var(--ink3);
+  font-style: italic;
+  margin: -0.35rem 0 0.75rem;
+}
+
+.en-text {
+  font-size: 12.5px;
+  color: var(--ink3);
+  font-style: italic;
+  margin-top: 6px;
+}
+
+.stat .l-en {
+  font-size: 10px;
+  color: var(--ink3);
+  font-style: italic;
+}
+
+.card .en-caption {
+  margin: -0.3rem 0 0.5rem;
+}
+
 .hero h1 {
   font-size: 28px;
   margin: 0 0 0.5rem;

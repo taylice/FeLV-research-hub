@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Linha do tempo — FeLV Research Hub</title>
+<title>Linha do tempo · FeLV Research Hub</title>
 <link rel="stylesheet" href="assets/css/style.css">
 <style>
 .tl-year {
@@ -59,7 +59,9 @@ select#catFilter { max-width: 360px; display: inline-block; margin-bottom: 0.75r
 <div class="wrap">
   <div class="hero">
     <h1>Linha do tempo do FeLV</h1>
-    <p class="lead">Da descoberta do vírus (1964) à pesquisa mais recente sobre subgrupos e recombinação — cronologia de marcos históricos, receptores, vacinas e epidemiologia, construída a partir da planilha de pesquisa deste projeto. Registros anteriores a 1964 também aparecem, mas identificados como precedentes especulativos ou casos clínicos pré-descoberta, não como FeLV confirmado.</p>
+    <p class="en-caption">FeLV Timeline</p>
+    <p class="lead">Da descoberta do vírus (1964) até a pesquisa mais recente sobre subgrupos e recombinação: uma cronologia de marcos históricos, receptores, vacinas e epidemiologia, construída a partir da planilha de pesquisa deste projeto. Registros anteriores a 1964 também aparecem, mas identificados como precedentes especulativos ou casos clínicos pré-descoberta, não como FeLV confirmado.</p>
+    <p class="en-text" style="max-width:640px">EN: From the discovery of the virus (1964) to the most recent research on subgroups and recombination: a chronology of historical milestones, receptors, vaccines and epidemiology, built from this project's research spreadsheet. Records prior to 1964 also appear, but identified as speculative precedents or pre-discovery clinical cases, not as confirmed FeLV.</p>
   </div>
 
   <input type="search" id="search" placeholder="Buscar por título, autor, país, DOI...">
@@ -115,7 +117,7 @@ function render(list) {
     html += `<div class="tl-item ${isMilestone(r) ? 'milestone' : ''}">
       <div class="cat">${r.category || ''}${r.country ? ' · ' + r.country : ''}</div>
       <div class="ttl">${link ? `<a href="${link}" target="_blank" rel="noopener">${r.title}</a>` : (r.title || '')}</div>
-      <div class="meta">${r.authors || ''}${r.journal ? ' — ' + r.journal : ''}${r.metric && r.metric !== '-' ? ' · ' + r.metric : ''}</div>
+      <div class="meta">${r.authors || ''}${r.journal ? ' · ' + r.journal : ''}${r.metric && r.metric !== '-' ? ' · ' + r.metric : ''}</div>
       ${r.notes ? `<div class="notes">${r.notes}</div>` : ''}
     </div>`;
   });

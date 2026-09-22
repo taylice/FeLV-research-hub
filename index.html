@@ -27,44 +27,56 @@
   <div class="hero">
     <h1>Acervo de pesquisa sobre o Vírus da Leucemia Felina (FeLV)</h1>
     <p class="lead">Um ponto de partida gratuito e aberto para quem pesquisa FeLV: linha do tempo científica, bases bibliográficas e uma ferramenta de apoio à subtipagem (A, B, C, D, E, T) a partir do gene <em>env</em>.</p>
-    <p style="font-size:12.5px;color:var(--ink3);border-left:2px solid var(--line);padding-left:10px;margin-top:0.75rem;max-width:640px">
-      <b>EN —</b> An open, free resource for FeLV research: a scientific timeline, literature databases, and a subtyping support tool (A, B, C, D, E, T) based on the <em>env</em> gene. All pages are in Portuguese; use your browser's built-in translation for other languages.
+    <p class="en-text" style="margin-top:0.75rem;max-width:640px">
+      <b>EN:</b> An open, free resource for FeLV research: a scientific timeline, literature databases, and a subtyping support tool (A, B, C, D, E, T) based on the <em>env</em> gene. All pages are in Portuguese; use your browser's built-in translation for other languages.
     </p>
   </div>
 
   <div class="stats" id="stats">
-    <div class="stat"><div class="n">—</div><div class="l">carregando…</div></div>
+    <div class="stat"><div class="n">…</div><div class="l">carregando…</div></div>
   </div>
 
   <div class="card-grid">
     <a class="card" href="felv_timeline.html">
       <h3>🕰️ Linha do tempo</h3>
+      <p class="en-caption">Timeline</p>
       <p>De 1964 até hoje: marcos históricos, descoberta de receptores, vacinas e epidemiologia do FeLV, organizados cronologicamente.</p>
+      <p class="en-text">From 1964 to today: historical milestones, receptor discoveries, vaccines and epidemiology of FeLV, organized chronologically.</p>
     </a>
     <a class="card" href="pubmed.html">
       <h3>📚 Literatura</h3>
-      <p>Busca bibliográfica ampla sobre FeLV — pesquisável e paginada. <small>Fonte: base de literatura biomédica.</small></p>
+      <p class="en-caption">Literature</p>
+      <p>Busca bibliográfica ampla sobre FeLV, pesquisável e paginada. <small>Fonte: base de literatura biomédica.</small></p>
+      <p class="en-text">Broad bibliographic search on FeLV, searchable and paginated. <small>Source: biomedical literature database.</small></p>
     </a>
     <a class="card" href="enfelv.html">
       <h3>🧬 enFeLV</h3>
       <p>Busca dedicada a FeLV endógeno e retrovírus endógenos que recombinam com o FeLV.</p>
+      <p class="en-text">A search dedicated to endogenous FeLV and endogenous retroviruses that recombine with FeLV.</p>
     </a>
     <a class="card" href="epidemiologia.html">
       <h3>🌍 Epidemiologia</h3>
+      <p class="en-caption">Epidemiology</p>
       <p>Prevalência de FeLV por país e continente, incluindo um recorte de amostragem pan-europeu. <small>Fonte: Studer et al., 2019.</small></p>
+      <p class="en-text">FeLV prevalence by country and continent, including a pan-European sampling snapshot. <small>Source: Studer et al., 2019.</small></p>
     </a>
     <a class="card" href="subtipador.html">
       <h3>🧪 Subtipador (env)</h3>
-      <p>Em construção — vai sugerir o subgrupo de FeLV (A, B, C, D, E, T) a partir de uma sequência do gene env, com base em análises de docking molecular ainda em andamento.</p>
+      <p class="en-caption">Subtyper (env)</p>
+      <p>Em construção: vai sugerir o subgrupo de FeLV (A, B, C, D, E, T) a partir de uma sequência do gene env, com base em análises de docking molecular ainda em andamento.</p>
+      <p class="en-text">Under construction: will suggest the FeLV subgroup (A, B, C, D, E, T) from an env gene sequence, based on molecular docking analyses still in progress.</p>
     </a>
     <a class="card" href="sobre.html">
       <h3>ℹ️ Sobre o projeto</h3>
+      <p class="en-caption">About the project</p>
       <p>Como os dados são organizados, o que cada seção mostra, e os limites de cada ferramenta aqui.</p>
+      <p class="en-text">How the data is organized, what each section shows, and the limits of each tool here.</p>
     </a>
   </div>
 
   <div class="notice warn">
-    <b>Sobre os PDFs:</b> este site publica apenas os <b>metadados e o link oficial</b> de cada referência (DOI ou página da editora), não os arquivos PDF em si — a maioria dos artigos científicos tem direitos autorais das editoras, e redistribuir o PDF publicamente não é permitido mesmo quando o acesso original foi legítimo (ex: via portal de periódicos institucional).
+    <b>Sobre os PDFs:</b> este site publica apenas os <b>metadados e o link oficial</b> de cada referência (DOI ou página da editora), não os arquivos PDF em si. A maioria dos artigos científicos tem direitos autorais das editoras, e redistribuir o PDF publicamente não é permitido mesmo quando o acesso original foi legítimo (ex: via portal de periódicos institucional).
+    <p class="en-text"><b>About the PDFs:</b> this site only publishes the metadata and the official link for each reference (DOI or publisher page), not the PDF files themselves. Most scientific articles are copyrighted by their publishers, and this holds even when the PDF was obtained legitimately (e.g. via an institutional journal portal).</p>
   </div>
 </div>
 
@@ -78,9 +90,9 @@
 <script>
 try {
   document.getElementById('stats').innerHTML = `
-    <div class="stat"><div class="n">${window.__TIMELINE__.count}</div><div class="l">eventos na linha do tempo</div></div>
-    <div class="stat"><div class="n">${window.__PUBMED__.count}</div><div class="l">artigos na literatura</div></div>
-    <div class="stat"><div class="n">${window.__ENFELV__.count}</div><div class="l">artigos (enFeLV)</div></div>
+    <div class="stat"><div class="n">${window.__TIMELINE__.count}</div><div class="l">eventos na linha do tempo</div><div class="l-en">events in the timeline</div></div>
+    <div class="stat"><div class="n">${window.__PUBMED__.count}</div><div class="l">artigos na literatura</div><div class="l-en">literature articles</div></div>
+    <div class="stat"><div class="n">${window.__ENFELV__.count}</div><div class="l">artigos (enFeLV)</div><div class="l-en">articles (enFeLV)</div></div>
   `;
 } catch (e) {}
 </script>
