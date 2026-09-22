@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>enFeLV — FeLV Research Hub</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="bar">
+    <a class="brand" href="index.html">🐱 FeLV Research Hub</a>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="felv_timeline.html">Linha do tempo</a>
+      <a href="pubmed.html">PubMed</a>
+      <a href="enfelv.html" class="active">enFeLV</a>
+      <a href="epidemiologia.html">Epidemiologia</a>
+      <a href="subtipador.html">Subtipador</a>
+      <a href="sobre.html">Sobre</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>enFeLV — lista completa</h1>
+    <p class="lead">Busca dedicada a FeLV endógeno (enFeLV) e retrovírus endógenos que recombinam com o FeLV: <span id="totalCount">—</span> artigos.</p>
+  </div>
+
+  <input type="search" id="search" placeholder="Buscar por autor, título, periódico ou ano...">
+  <div class="count" id="count"></div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:60px">Ano</th>
+        <th class="ref-cell">Referência</th>
+        <th style="width:150px">DOI / PMID</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<footer class="site">
+  Projeto de pesquisa independente sobre FeLV · dados extraídos da planilha de pesquisa, erros podem ser reportados via GitHub Issues.
+</footer>
+
+<script src="assets/js/list-page.js"></script>
+<script src="data/enfelv.json.js"></script>
+<script>
+initListPage({
+  data: window.__ENFELV__.records,
+  totalCountEl: document.getElementById('totalCount'),
+});
+</script>
+</body>
+</html>

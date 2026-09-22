@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Epidemiologia — FeLV Research Hub</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="bar">
+    <a class="brand" href="index.html">🐱 FeLV Research Hub</a>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="felv_timeline.html">Linha do tempo</a>
+      <a href="pubmed.html">PubMed</a>
+      <a href="enfelv.html">enFeLV</a>
+      <a href="epidemiologia.html" class="active">Epidemiologia</a>
+      <a href="subtipador.html">Subtipador</a>
+      <a href="sobre.html">Sobre</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Epidemiologia por país</h1>
+    <p class="lead">Duas fontes, mostradas separadamente: um histórico mundial consolidado de prevalência de FeLV por país, e a tabela original do estudo pan-europeu de Studer et al. (2019).</p>
+  </div>
+
+  <h2>Histórico mundial por país</h2>
+  <input type="search" id="search-mundo" placeholder="Buscar por país, continente ou fonte...">
+  <div class="count" id="count-mundo"></div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:90px">Continente</th>
+        <th style="width:120px">País/Região</th>
+        <th style="width:90px">Dado mais antigo</th>
+        <th style="width:140px">Prevalência mais recente</th>
+        <th class="ref-cell">Fonte principal / histórico</th>
+      </tr>
+    </thead>
+    <tbody id="tbody-mundo"></tbody>
+  </table>
+
+  <h2>Europa — Studer et al. (2019)</h2>
+  <p class="lead" style="font-size:13.5px">Tabela original desse estudo pan-europeu específico (amostra por país), mantida separada do histórico consolidado acima.</p>
+  <div class="count" id="count-studer"></div>
+  <table>
+    <thead>
+      <tr>
+        <th class="ref-cell">País</th>
+        <th style="width:110px">Prevalência (%)</th>
+        <th style="width:120px">Positivos/Amostra</th>
+        <th class="ref-cell">Observação</th>
+      </tr>
+    </thead>
+    <tbody id="tbody-studer"></tbody>
+  </table>
+</div>
+
+<footer class="site">
+  Projeto de pesquisa independente sobre FeLV · dados extraídos da planilha de pesquisa, erros podem ser reportados via GitHub Issues.
+</footer>
+
+<script src="data/epidemiologia.json.js"></script>
+<script>
+const MUNDO = window.__EPIDEMIOLOGIA__.mundo;
+const STUDER = window.__EPIDEMIOLOGIA__.studer;
+
+function doiLink(doi) {
+  if (!doi || doi === '-') return '';
+  return ` · <a href="https://doi.org/${doi}" target="_blank" rel="noopener">DOI</a>`;
+}
+
+function renderMundo(list) {
+  document.getElementById('tbody-mundo').innerHTML = list.map(r => `
+    <tr>
+      <td>${r.continent || ''}</td>
+      <td>${r.country || ''}</td>
+      <td>${r.earliest_year ?? ''}</td>
+      <td>${r.latest_prevalence || ''}${r.latest_year ? ' (' + r.latest_year + ')' : ''}</td>
+      <td class="ref-cell">${r.main_source || ''}${doiLink(r.doi)}<div class="note" style="margin-top:4px">${r.history_notes || ''}</div></td>
+    </tr>`).join('');
+  document.getElementById('count-mundo').textContent = list.length + ' registro' + (list.length !== 1 ? 's' : '');
+}
+
+function renderStuder(list) {
+  document.getElementById('tbody-studer').innerHTML = list.map(r => `
+    <tr>
+      <td class="ref-cell">${r.country || ''}</td>
+      <td>${r.prevalence_pct ?? ''}</td>
+      <td>${r.positives_over_sample || ''}</td>
+      <td class="ref-cell">${r.note || ''}</td>
+    </tr>`).join('');
+  document.getElementById('count-studer').textContent = list.length + ' país' + (list.length !== 1 ? 'es' : '');
+}
+
+document.getElementById('search-mundo').addEventListener('input', e => {
+  const q = e.target.value.toLowerCase();
+  renderMundo(q ? MUNDO.filter(r => JSON.stringify(r).toLowerCase().includes(q)) : MUNDO);
+});
+
+renderMundo(MUNDO);
+renderStuder(STUDER);
+</script>
+</body>
+</html>

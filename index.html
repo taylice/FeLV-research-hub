@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FeLV Research Hub</title>
-<meta name="description" content="Acervo aberto de pesquisa sobre o vírus da leucemia felina (FeLV): artigos científicos, biologia molecular e ferramenta de apoio à subtipagem.">
+<meta name="description" content="Acervo aberto de pesquisa sobre o vírus da leucemia felina (FeLV): linha do tempo, buscas bibliográficas e ferramenta de apoio à subtipagem.">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -13,8 +13,10 @@
     <a class="brand" href="index.html">🐱 FeLV Research Hub</a>
     <nav>
       <a href="index.html" class="active">Início</a>
-      <a href="biblioteca.html">Biblioteca</a>
       <a href="felv_timeline.html">Linha do tempo</a>
+      <a href="pubmed.html">PubMed</a>
+      <a href="enfelv.html">enFeLV</a>
+      <a href="epidemiologia.html">Epidemiologia</a>
       <a href="subtipador.html">Subtipador</a>
       <a href="sobre.html">Sobre</a>
     </nav>
@@ -24,50 +26,58 @@
 <div class="wrap">
   <div class="hero">
     <h1>Acervo de pesquisa sobre o Vírus da Leucemia Felina (FeLV)</h1>
-    <p class="lead">Um ponto de partida gratuito e aberto para quem pesquisa FeLV: referências organizadas e verificadas, e uma ferramenta de apoio à subtipagem (A, B, C, T) a partir do gene <em>env</em>.</p>
+    <p class="lead">Um ponto de partida gratuito e aberto para quem pesquisa FeLV: linha do tempo científica, bases bibliográficas e uma ferramenta de apoio à subtipagem (A, B, C, T) a partir do gene <em>env</em>.</p>
   </div>
 
   <div class="stats" id="stats">
-    <div class="stat"><div class="n">—</div><div class="l">referências verificadas</div></div>
+    <div class="stat"><div class="n">—</div><div class="l">carregando…</div></div>
   </div>
 
   <div class="card-grid">
-    <a class="card" href="biblioteca.html">
-      <h3>📚 Biblioteca de artigos</h3>
-      <p>Tabela pesquisável e filtrável com as referências usadas nesta pesquisa, verificadas uma a uma — com link para a fonte oficial (DOI/editora).</p>
-    </a>
     <a class="card" href="felv_timeline.html">
       <h3>🕰️ Linha do tempo</h3>
       <p>De 1908 até hoje: marcos históricos, descoberta de receptores, vacinas e epidemiologia do FeLV, organizados cronologicamente.</p>
     </a>
+    <a class="card" href="pubmed.html">
+      <h3>📚 PubMed</h3>
+      <p>Resultado bruto da busca bibliográfica no PubMed sobre FeLV — pesquisável e paginado.</p>
+    </a>
+    <a class="card" href="enfelv.html">
+      <h3>🧬 enFeLV</h3>
+      <p>Busca dedicada a FeLV endógeno e retrovírus endógenos que recombinam com o FeLV.</p>
+    </a>
+    <a class="card" href="epidemiologia.html">
+      <h3>🌍 Epidemiologia</h3>
+      <p>Prevalência de FeLV por país e continente, incluindo o estudo pan-europeu de Studer et al. (2019).</p>
+    </a>
     <a class="card" href="subtipador.html">
-      <h3>🧬 Subtipador (env)</h3>
-      <p>Cole uma sequência do gene env do FeLV e receba uma sugestão orientativa de subgrupo, com base em características descritas na literatura.</p>
+      <h3>🧪 Subtipador (env)</h3>
+      <p>Em construção — vai sugerir o subgrupo de FeLV (A, B, C, T) a partir de uma sequência do gene env, com base em análises de docking molecular ainda em andamento.</p>
     </a>
     <a class="card" href="sobre.html">
       <h3>ℹ️ Sobre o projeto</h3>
-      <p>Como os dados foram verificados, o que significa cada categoria, e os limites de precisão das ferramentas aqui.</p>
+      <p>Como os dados são organizados, o que cada seção mostra, e os limites de cada ferramenta aqui.</p>
     </a>
   </div>
 
   <div class="notice warn">
-    <b>Sobre os PDFs:</b> este site publica apenas os <b>metadados e o link oficial</b> de cada referência (DOI ou página da editora), não os arquivos PDF em si — a maioria dos artigos científicos tem direitos autorais das editoras, e redistribuir o PDF publicamente não é permitido mesmo quando o acesso original foi legítimo (ex: via portal de periódicos institucional). PDFs de artigos genuinamente Open Access podem ser linkados diretamente quando identificados.
+    <b>Sobre os PDFs:</b> este site publica apenas os <b>metadados e o link oficial</b> de cada referência (DOI ou página da editora), não os arquivos PDF em si — a maioria dos artigos científicos tem direitos autorais das editoras, e redistribuir o PDF publicamente não é permitido mesmo quando o acesso original foi legítimo (ex: via portal de periódicos institucional).
   </div>
 </div>
 
 <footer class="site">
-  Projeto de pesquisa independente sobre FeLV · dados verificados manualmente, erros podem ser reportados via GitHub Issues.
+  Projeto de pesquisa independente sobre FeLV · dados extraídos da planilha de pesquisa, erros podem ser reportados via GitHub Issues.
 </footer>
 
-<script src="data/articles.json.js"></script>
 <script src="data/timeline.json.js"></script>
+<script src="data/pubmed.json.js"></script>
+<script src="data/enfelv.json.js"></script>
 <script>
 try {
-  const total = window.__ARTICLES__.total;
   document.getElementById('stats').innerHTML = `
-    <div class="stat"><div class="n">${total}</div><div class="l">referências no manuscrito</div></div>
-    <div class="stat"><div class="n">${window.__ARTICLES__.with_pdf}</div><div class="l">com PDF de origem localizado</div></div>
     <div class="stat"><div class="n">${window.__TIMELINE__.count}</div><div class="l">eventos na linha do tempo</div></div>
+    <div class="stat"><div class="n">${window.__PUBMED__.count}</div><div class="l">artigos (PubMed)</div></div>
+    <div class="stat"><div class="n">${window.__ENFELV__.count}</div><div class="l">artigos (enFeLV)</div></div>
   `;
 } catch (e) {}
 </script>

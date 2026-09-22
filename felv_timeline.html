@@ -46,8 +46,10 @@ select#catFilter { max-width: 360px; display: inline-block; margin-bottom: 0.75r
     <a class="brand" href="index.html">🐱 FeLV Research Hub</a>
     <nav>
       <a href="index.html">Início</a>
-      <a href="biblioteca.html">Biblioteca</a>
       <a href="felv_timeline.html" class="active">Linha do tempo</a>
+      <a href="pubmed.html">PubMed</a>
+      <a href="enfelv.html">enFeLV</a>
+      <a href="epidemiologia.html">Epidemiologia</a>
       <a href="subtipador.html">Subtipador</a>
       <a href="sobre.html">Sobre</a>
     </nav>
@@ -66,7 +68,6 @@ select#catFilter { max-width: 360px; display: inline-block; margin-bottom: 0.75r
     <div class="filters" id="quick">
       <button class="active" data-f="all">Tudo (<span id="cAll"></span>)</button>
       <button data-f="milestone">Marcos históricos</button>
-      <button data-f="manuscript">Já no manuscrito</button>
     </div>
   </div>
   <div class="count" id="count"></div>
@@ -128,7 +129,6 @@ function applyFilters() {
   const cat = catSelect.value;
   let list = DATA;
   if (currentQuick === 'milestone') list = list.filter(isMilestone);
-  else if (currentQuick === 'manuscript') list = list.filter(r => (r.in_manuscript || '').toLowerCase() === 'sim');
   if (cat) list = list.filter(r => r.category === cat);
   if (q) list = list.filter(r => JSON.stringify(r).toLowerCase().includes(q));
   render(list);
