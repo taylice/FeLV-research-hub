@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linha do tempo — FeLV Research Hub</title>
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+.tl-year {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  padding: 0.6rem 0 0.3rem;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  z-index: 2;
+}
+.tl-item {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.7rem;
+}
+.tl-item.milestone { border-left-color: var(--red); }
+.tl-item .cat {
+  display: inline-block;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--ink3);
+  margin-bottom: 4px;
+}
+.tl-item .ttl { font-size: 14.5px; font-weight: 600; margin: 0 0 4px; }
+.tl-item .meta { font-size: 12.5px; color: var(--ink2); }
+.tl-item .notes { font-size: 12px; color: var(--ink3); margin-top: 4px; font-style: italic; }
+select#catFilter { max-width: 360px; display: inline-block; margin-bottom: 0.75rem; }
+.togglebar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="bar">
+    <a class="brand" href="index.html">🐱 FeLV Research Hub</a>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="biblioteca.html">Biblioteca</a>
+      <a href="felv_timeline.html" class="active">Linha do tempo</a>
+      <a href="subtipador.html">Subtipador</a>
+      <a href="sobre.html">Sobre</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Linha do tempo do FeLV</h1>
+    <p class="lead">Da primeira descrição de um vírus tumoral (1908) à pesquisa mais recente sobre subgrupos e recombinação — cronologia de marcos históricos, receptores, vacinas e epidemiologia, construída a partir da planilha de pesquisa deste projeto.</p>
+  </div>
+
+  <input type="search" id="search" placeholder="Buscar por título, autor, país, DOI...">
+  <div class="togglebar">
+    <select id="catFilter"><option value="">Todas as categorias</option></select>
+    <div class="filters" id="quick">
+      <button class="active" data-f="all">Tudo (<span id="cAll"></span>)</button>
+      <button data-f="milestone">Marcos históricos</button>
+      <button data-f="manuscript">Já no manuscrito</button>
+    </div>
+  </div>
+  <div class="count" id="count"></div>
+
+  <div id="tl"></div>
+</div>
+
+<footer class="site">
+  Projeto de pesquisa independente sobre FeLV · dados verificados manualmente, erros podem ser reportados via GitHub Issues.
+</footer>
+
+<script src="data/timeline.json.js"></script>
+<script>
+const DATA = window.__TIMELINE__.records;
+const CATS = window.__TIMELINE__.categories;
+
+const catSelect = document.getElementById('catFilter');
+CATS.forEach(c => {
+  const opt = document.createElement('option');
+  opt.value = c; opt.textContent = c;
+  catSelect.appendChild(opt);
+});
+document.getElementById('cAll').textContent = DATA.length;
+
+function isMilestone(r) {
+  return (r.category || '').toLowerCase().includes('marco historico');
+}
+
+function doiUrl(doi) {
+  if (!doi || doi === '-' ) return null;
+  if (/^https?:\/\//.test(doi)) return doi;
+  return 'https://doi.org/' + doi.replace(/^doi:\s*/i, '');
+}
+
+function render(list) {
+  const tl = document.getElementById('tl');
+  let html = '';
+  let lastYear = null;
+  list.forEach(r => {
+    if (r.year !== lastYear) {
+      html += `<div class="tl-year">${r.year ?? 'Sem data'}</div>`;
+      lastYear = r.year;
+    }
+    const link = doiUrl(r.doi);
+    html += `<div class="tl-item ${isMilestone(r) ? 'milestone' : ''}">
+      <div class="cat">${r.category || ''}${r.country ? ' · ' + r.country : ''}</div>
+      <div class="ttl">${link ? `<a href="${link}" target="_blank" rel="noopener">${r.title}</a>` : (r.title || '')}</div>
+      <div class="meta">${r.authors || ''}${r.journal ? ' — ' + r.journal : ''}${r.metric && r.metric !== '-' ? ' · ' + r.metric : ''}</div>
+      ${r.notes ? `<div class="notes">${r.notes}</div>` : ''}
+    </div>`;
+  });
+  tl.innerHTML = html;
+  document.getElementById('count').textContent = list.length + ' registro' + (list.length !== 1 ? 's' : '');
+}
+
+let currentQuick = 'all';
+function applyFilters() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const cat = catSelect.value;
+  let list = DATA;
+  if (currentQuick === 'milestone') list = list.filter(isMilestone);
+  else if (currentQuick === 'manuscript') list = list.filter(r => (r.in_manuscript || '').toLowerCase() === 'sim');
+  if (cat) list = list.filter(r => r.category === cat);
+  if (q) list = list.filter(r => JSON.stringify(r).toLowerCase().includes(q));
+  render(list);
+}
+
+document.getElementById('search').addEventListener('input', applyFilters);
+catSelect.addEventListener('change', applyFilters);
+document.getElementById('quick').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  document.querySelectorAll('#quick button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentQuick = btn.dataset.f;
+  applyFilters();
+});
+
+render(DATA);
+</script>
+</body>
+</html>

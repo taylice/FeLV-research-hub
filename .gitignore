@@ -1,0 +1,12 @@
+# PDFs and source documents stay local only — copyright (see sobre.html)
+*.pdf
+*.docx
+*.doc
+
+# Working spreadsheet has personal notes/unreviewed candidate lists — not for public repo.
+# Cleaned, public-safe data derived from it lives in data/*.json and data/*.json.js.
+felv_timeline.xlsx
+
+# OS / editor junk
+Thumbs.db
+.DS_Store

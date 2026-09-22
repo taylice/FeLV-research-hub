@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biblioteca — FeLV Research Hub</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="site">
+  <div class="bar">
+    <a class="brand" href="index.html">🐱 FeLV Research Hub</a>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="biblioteca.html" class="active">Biblioteca</a>
+      <a href="felv_timeline.html">Linha do tempo</a>
+      <a href="subtipador.html">Subtipador</a>
+      <a href="sobre.html">Sobre</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>Biblioteca de referências</h1>
+    <p class="lead">As referências efetivamente citadas no manuscrito, extraídas diretamente da planilha de pesquisa (buscas no PubMed), com link para a fonte oficial (DOI/PMID).</p>
+  </div>
+
+  <input type="search" id="search" placeholder="Buscar por autor, título, ano ou periódico...">
+  <div class="filters" id="filters">
+    <button class="active" data-f="all">Todas</button>
+    <button data-f="pdf">Com PDF de origem localizado</button>
+  </div>
+  <div class="count" id="count"></div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:60px">Ano</th>
+        <th class="ref-cell">Referência</th>
+        <th style="width:120px">PDF de origem</th>
+        <th style="width:160px">DOI / PMID</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<footer class="site">
+  Projeto de pesquisa independente sobre FeLV · dados verificados manualmente, erros podem ser reportados via GitHub Issues.
+</footer>
+
+<script src="data/articles.json.js"></script>
+<script>
+const DATA = window.__ARTICLES__.articles;
+
+function doiOrPmid(a) {
+  if (a.doi) return `<a href="https://doi.org/${a.doi}" target="_blank" rel="noopener">${a.doi}</a>`;
+  if (a.pmid) return `<a href="https://pubmed.ncbi.nlm.nih.gov/${a.pmid}/" target="_blank" rel="noopener">PMID ${a.pmid}</a>`;
+  return '—';
+}
+
+function render(list) {
+  const tb = document.getElementById('tbody');
+  tb.innerHTML = list.map(a => `
+    <tr>
+      <td>${a.year ?? ''}</td>
+      <td class="ref-cell"><b>${a.author || ''}</b>${a.n_authors > 1 ? ' et al.' : ''} — ${a.title || ''}${a.journal ? `. <i>${a.journal}</i>` : ''}</td>
+      <td>${a.pdf_downloaded ? '<span class="badge yes">localizado</span>' : '<span class="badge no">não localizado</span>'}</td>
+      <td>${doiOrPmid(a)}</td>
+    </tr>`).join('');
+  document.getElementById('count').textContent = list.length + ' referência' + (list.length !== 1 ? 's' : '');
+}
+
+let currentFilter = 'all';
+function applyFilters() {
+  const q = document.getElementById('search').value.toLowerCase();
+  let list = DATA;
+  if (currentFilter === 'pdf') list = list.filter(a => a.pdf_downloaded);
+  if (q) list = list.filter(a => JSON.stringify(a).toLowerCase().includes(q));
+  render(list);
+}
+
+document.getElementById('search').addEventListener('input', applyFilters);
+document.getElementById('filters').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  document.querySelectorAll('#filters button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = btn.dataset.f;
+  applyFilters();
+});
+
+render(DATA);
+</script>
+</body>
+</html>
